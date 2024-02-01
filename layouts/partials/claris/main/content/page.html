@@ -29,7 +29,10 @@
   {{- end -}}
   <div class="article_body">
   {{- if $outdated }}
-    {{- warnf "%s[%s]: article is outdated" $page $template }}
+    {{- /* Show a warning unless the page has an explicit `bestbefore` date */ -}}
+    {{- if not $page.Params.bestbefore }}
+      {{- warnf "%s[%s]: article is outdated" $page $template }}
+    {{- end }}
     {{- partial "claris/_components/outdated" . -}}
   {{- end -}}
   {{- partial "claris/_components/lede-initial" .Content }}
